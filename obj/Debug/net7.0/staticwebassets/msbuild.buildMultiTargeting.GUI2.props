@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="../build/GUI2.props" />
+</Project>

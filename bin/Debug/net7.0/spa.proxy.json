@@ -1,0 +1,8 @@
+{
+"SpaProxyServer": {
+"ServerUrl": "https://localhost:44449",
+"LaunchCommand": "npm start",
+"WorkingDirectory": "/home/odin/CODE/Titan/Titan/ClientApp/",
+"MaxTimeoutInSeconds": "120"
+}
+}
