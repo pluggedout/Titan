@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class TwoPaneTextEditor extends Component {
+export class TwoPaneTextEditor extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -42,5 +42,3 @@ class TwoPaneTextEditor extends Component {
     );
   }
 }
-
-export default TwoPaneTextEditor;
