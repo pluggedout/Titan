@@ -1,7 +1,6 @@
 /home/odin/CODE/Titan/Titan/bin/Debug/net7.0/spa.proxy.json
 /home/odin/CODE/Titan/Titan/bin/Debug/net7.0/appsettings.Development.json
 /home/odin/CODE/Titan/Titan/bin/Debug/net7.0/appsettings.json
-/home/odin/CODE/Titan/Titan/bin/Debug/net7.0/global.json
 /home/odin/CODE/Titan/Titan/bin/Debug/net7.0/GUI2.staticwebassets.runtime.json
 /home/odin/CODE/Titan/Titan/bin/Debug/net7.0/GUI2
 /home/odin/CODE/Titan/Titan/bin/Debug/net7.0/GUI2.deps.json
