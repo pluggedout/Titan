@@ -29,16 +29,17 @@ RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | b
 RUN source ~/.bashrc
 # RUN nvm install v16.20.2
 RUN dotnet nuget locals --clear all
-RUN dotnet restore
+RUN dotnet restore  --verbosity minimal
 COPY . ./
+RUN dotnet add package Microsoft.CodeAnalysis.Analyzers
 RUN dotnet build --no-restore
+ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
 RUN dotnet publish -c Release --no-restore -o /app
 
 # Final stage / image
 FROM mcr.microsoft.com/dotnet/runtime:8.0-jammy
 WORKDIR /app
-COPY --from=build-env /source/out .
 EXPOSE 3000
 EXPOSE 5008
 EXPOSE 49000
-ENTRYPOINT [ "./dotnetapp" ]
+ENTRYPOINT [ "/source/bin/Release/net7.0/GUI2.dll" ]
