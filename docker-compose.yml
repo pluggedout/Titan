@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+  frontend:
+    build: .
+    container_name: titan_frontend
+    ports:
+      - "3000:44449"
+      - "3001:5008"
+    # ASPNETCORE_ENVIRONMENT: "Development"
+    volumes:
+      - ./:./data/
+      - ${HOME}/.microsoft/usersecrets/:/root/.microsoft/usersecrets 
+    
