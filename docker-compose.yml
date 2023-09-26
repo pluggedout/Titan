@@ -8,6 +8,6 @@ services:
       - "3001:5008"
     # ASPNETCORE_ENVIRONMENT: "Development"
     volumes:
-      - ./:./data/
+    #  - ./:./data/
       - ${HOME}/.microsoft/usersecrets/:/root/.microsoft/usersecrets 
     
