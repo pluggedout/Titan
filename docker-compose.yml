@@ -4,8 +4,9 @@ services:
     build: .
     container_name: titan_frontend
     ports:
-      - "3000:44449"
-      - "3001:5008"
+      - "80:80"    
+      - "44449:44449"
+      - "5008:5008"
     # ASPNETCORE_ENVIRONMENT: "Development"
     volumes:
     #  - ./:./data/

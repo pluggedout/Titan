@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/runtime:8.0-jammy AS build-env
+FROM mcr.microsoft.com/dotnet/runtime:7.0-jammy AS build-env
 SHELL ["/bin/bash", "-c"]
 
 WORKDIR /source
@@ -34,12 +34,22 @@ COPY . ./
 RUN dotnet add package Microsoft.CodeAnalysis.Analyzers
 RUN dotnet build --no-restore
 ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
-RUN dotnet publish -c Release --no-restore -o /app
+RUN dotnet publish -c Release --no-restore -o out
 
 # Final stage / image
-FROM mcr.microsoft.com/dotnet/runtime:8.0-jammy
+FROM mcr.microsoft.com/dotnet/runtime:7.0-jammy
 WORKDIR /app
 EXPOSE 3000
 EXPOSE 5008
-EXPOSE 49000
-ENTRYPOINT [ "/source/bin/Release/net7.0/GUI2.dll" ]
+EXPOSE 44449
+
+RUN apt-get update && apt-get install -y -q --no-install-recommends \
+        dotnet-sdk-7.0 \
+        apt-transport-https \
+        build-essential \
+        ca-certificates \
+        curl \
+        libssl-dev \
+    && rm -rf /var/lib/apt/lists/*
+COPY --from=build-env /source/out .
+ENTRYPOINT [ "dotnet", "GUI2.dll" ]
