@@ -1,14 +1,39 @@
 version: '3.8'
 services:
   frontend:
-    build: .
+    build: 
+      context: .
+      dockerfile: ./Dockerfile
     container_name: titan_frontend
-    ports:
-      - "80:80"    
-      - "44449:44449"
-      - "5008:5008"
-    # ASPNETCORE_ENVIRONMENT: "Development"
+    networks:
+      - titan_network
+#    titan_network:
+#       ipv4_address: 172.16.238.10
+#       ipv6_address: 2001:3984:3989::10
+    ports: 
+      - 44449:44449
+      - 5008:5008
+    # If the Dockerfile for the image already exposes ports, it is visible to other containers on the network even is expose is not set in your Compose file.
+    # expose:
+    #  - "44449"
+    #  - "5008"
+    environment:  
+      ASPNETCORE_URLS: "https://+;http://+"  
+      ASPNETCORE_HTTPS_PORT: "44449,5008"  
+      ASPNETCORE_Kestrel__Certificates__Default__Password: "SoSecr33ttt"  
+      ASPNETCORE_Kestrel__Certificates__Default__Path: "${HOME}/.aspnet/https/aspnetapp.pfx"  
+      ASPNETCORE_ENVIRONMENT: "Development"
     volumes:
     #  - ./:./data/
-      - ${HOME}/.microsoft/usersecrets/:/root/.microsoft/usersecrets 
-    
+      - /home/odin/.microsoft/usersecrets/:/root/.microsoft/usersecrets 
+      - /home/odin/.aspnet/https:/root/.aspnet/https/
+networks:
+  titan_network:
+    driver: bridge
+#    ip6net:
+#    enable_ipv6: false
+#    ipam:
+#      driver: default
+#      config:
+#        - subnet: "172.16.238.0/24"
+#        - subnet: "2001:3984:3989::/64"
