@@ -3,6 +3,10 @@ SHELL ["/bin/bash", "-c"]
 
 WORKDIR /source
 
+EXPOSE 3000
+EXPOSE 5008
+EXPOSE 44449
+
 COPY *.csproj ./
 
 RUN apt-get update && apt-get install -y -q --no-install-recommends \
@@ -39,9 +43,6 @@ RUN dotnet publish -c Release --no-restore -o out
 # Final stage / image
 FROM mcr.microsoft.com/dotnet/runtime:7.0-jammy
 WORKDIR /app
-EXPOSE 3000
-EXPOSE 5008
-EXPOSE 44449
 
 RUN apt-get update && apt-get install -y -q --no-install-recommends \
         dotnet-sdk-7.0 \
@@ -53,3 +54,5 @@ RUN apt-get update && apt-get install -y -q --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 COPY --from=build-env /source/out .
 ENTRYPOINT [ "dotnet", "GUI2.dll" ]
+# Change the ENTRYPOINT to run a dummy command
+# ENTRYPOINT ["tail", "-f", "/dev/null"]
