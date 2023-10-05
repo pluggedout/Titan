@@ -11,17 +11,17 @@ services:
 #       ipv4_address: 172.16.238.10
 #       ipv6_address: 2001:3984:3989::10
     ports: 
-      - 44449:44449
-      - 5008:5008
+      - 443:443
+      - 80:80
     # If the Dockerfile for the image already exposes ports, it is visible to other containers on the network even is expose is not set in your Compose file.
     # expose:
     #  - "44449"
     #  - "5008"
     environment:  
       ASPNETCORE_URLS: "https://+;http://+"  
-      ASPNETCORE_HTTPS_PORT: "44449,5008"  
+      ASPNETCORE_HTTPS_PORT: "443"  
       ASPNETCORE_Kestrel__Certificates__Default__Password: "SoSecr33ttt"  
-      ASPNETCORE_Kestrel__Certificates__Default__Path: "${HOME}/.aspnet/https/aspnetapp.pfx"  
+      ASPNETCORE_Kestrel__Certificates__Default__Path: "/root/.aspnet/https/aspnetapp.pfx"  
       ASPNETCORE_ENVIRONMENT: "Development"
     volumes:
     #  - ./:./data/
