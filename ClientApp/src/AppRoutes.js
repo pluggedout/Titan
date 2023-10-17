@@ -1,8 +1,9 @@
 import ApiAuthoriztionRoutes from './components/api-authorization/ApiAuthorizationRoutes';
+import { ChatData } from './components/ChatData';
 import { Counter } from "./components/Counter";
 import { FetchData } from "./components/FetchData";
 import { Home } from "./components/Home";
-import { TwoPaneTextEditor } from './components/TwoPaneTextEditor';
+//import { TwoPaneTextEditor } from './components/TwoPaneTextEditor';
 
 const AppRoutes = [
   {
@@ -10,8 +11,9 @@ const AppRoutes = [
     element: <Home />
   },
   {
-    path: '/twopane',
-    element: <TwoPaneTextEditor />
+    path: '/chat-data',
+    requireAuth: true,
+    element: <ChatData />
   }, 
   {
     path: '/counter',

@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 using GUI2.Data;
 using GUI2.Models;
+using Titan.Models;
+using Titan.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,6 +38,8 @@ builder.Services.AddAuthentication()
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+builder.Services.AddScoped<IChatService, ChatService>();
+builder.Services.AddScoped<IHttpService, HttpService>();
 
 var app = builder.Build();
 

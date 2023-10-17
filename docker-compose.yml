@@ -24,7 +24,6 @@ services:
       ASPNETCORE_Kestrel__Certificates__Default__Path: "/root/.aspnet/https/aspnetapp.pfx"  
       ASPNETCORE_ENVIRONMENT: "Development"
     volumes:
-    #  - ./:./data/
       - /home/odin/.microsoft/usersecrets/:/root/.microsoft/usersecrets 
       - /home/odin/.aspnet/https:/root/.aspnet/https/
 networks:

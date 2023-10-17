@@ -10,7 +10,7 @@ export class FetchData extends Component {
   }
 
   componentDidMount() {
-    this.populateWeatherData();
+    this.populateChatData();
   }
 
   static renderForecastsTable(forecasts) {
@@ -52,7 +52,7 @@ export class FetchData extends Component {
     );
   }
 
-  async populateWeatherData() {
+  async populateChatData() {
     const token = await authService.getAccessToken();
     const response = await fetch('weatherforecast', {
       headers: !token ? {} : { 'Authorization': `Bearer ${token}` }
