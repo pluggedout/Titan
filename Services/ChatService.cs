@@ -23,4 +23,14 @@ public class ChatService : IChatService
         _messages.Add(data);
         return _messages;
     }
+
+    public IEnumerable<Titan.Models.Root> GetAllMessages(string question)
+    {
+        var rawdata = HttpService.GetAsync(question);
+        Console.WriteLine(rawdata.Result);
+        var data = JsonConvert.DeserializeObject<Titan.Models.Root>(rawdata.Result);
+        //_messages.Append(data);
+        _messages.Add(data);
+        return _messages;
+    }
 }

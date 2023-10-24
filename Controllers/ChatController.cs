@@ -31,12 +31,19 @@ namespace Titan.Controllers
             return messages;
         }
 
-    //     [HttpPost]
-    //     public ActionResult<ChatMessage> Post(ChatMessage message)
-    //     {
-    //         var newMessage = "Test"; // _chatService.AddMessage(message);
-    //         return Ok(newMessage);
-    //     }
-     }
+        [HttpPost]
+        public IEnumerable<Root> Post([FromBody] ChatMessage message)
+        {
+            var newMessage = message.Question; // _chatService.AddMessage(message);
+            var messages = _chatService.GetAllMessages();
+            return messages;
+        }
+    }
 }
 
+public class ChatRequestModel
+{
+    public string Question { get; set; }
+}
+
+    
