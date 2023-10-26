@@ -15,15 +15,15 @@ const AppRoutes = [
     requireAuth: true,
     element: <ChatData />
   }, 
-  {
-    path: '/counter',
-    element: <Counter />
-  },
-  {
-    path: '/fetch-data',
-    requireAuth: true,
-    element: <FetchData />
-  },
+  // {
+  //   path: '/counter',
+  //   element: <Counter />
+  // },
+  // {
+  //   path: '/fetch-data',
+  //   requireAuth: true,
+  //   element: <FetchData />
+  // },
   ...ApiAuthoriztionRoutes
 ];
 

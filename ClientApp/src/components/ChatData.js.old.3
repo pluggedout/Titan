@@ -1,0 +1,103 @@
+import React, { Component } from 'react';
+import authService from './api-authorization/AuthorizeService';
+
+export class ChatData extends Component {
+  static displayName = ChatData.name;
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      querydata: [],
+      question: '',
+      loading: true,
+      answeredQuestion: null, // Track the answered question and answer
+    };
+  }
+
+  handleInputChange = (e) => {
+    this.setState({ question: e.target.value });
+  }
+
+  handleKeyDown = async (e) => {
+    if (e.key === 'Enter') {
+      this.sendQuestionToBackend();
+    }
+  }
+
+  sendQuestionToBackend = async () => {
+    const token = await authService.getAccessToken();
+    const response = await fetch('chat', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        ...(token ? { 'Authorization': `Bearer ${token}` } : {}),
+      },
+      body: JSON.stringify({ question: this.state.question }),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      this.setState({
+        querydata: data,
+        loading: false,
+        answeredQuestion: this.state.question, // Store the answered question
+        question: '', // Clear the current question
+      });
+    }
+  }
+
+  render() {
+    let contents = this.state.loading
+      ? <p><em>Loading...</em></p>
+      : this.constructor.renderForecastsTable(this.state.querydata); // Use this.constructor to access the static function
+  
+    return (
+      <div>
+        <h1 id="tableLabel">ChatGPT data</h1>
+        <p>This component demonstrates fetching data from the ChatGPT server.</p>
+        <div style={{ display: "flex" }}>
+          <input
+            className="form-control"
+            type="text"
+            placeholder="Ask a question"
+            value={this.state.question}
+            onChange={this.handleInputChange}
+            onKeyDown={this.handleKeyDown}
+            readOnly={!!this.state.answeredQuestion} // Make the input readonly if a question is answered
+          />
+          <button
+            className="btn btn-lg btn-primary"
+            onClick={this.sendQuestionToBackend}
+            disabled={!!this.state.answeredQuestion} // Disable the button if a question is answered
+          >
+            Send
+          </button>
+        </div>
+        {this.state.answeredQuestion && (
+          <div>
+            <h3>Answered Question:</h3>
+            <p>{this.state.answeredQuestion}</p>
+            <h3>New Question:</h3>
+            <div style={{ display: "flex" }}>
+              <input
+                className="form-control"
+                type="text"
+                placeholder="Ask a question"
+                value={this.state.question}
+                onChange={this.handleInputChange}
+                onKeyDown={this.handleKeyDown}
+              />
+              <button
+                className="btn btn-lg btn-primary"
+                onClick={this.sendQuestionToBackend}
+              >
+                Send
+              </button>
+            </div>
+          </div>
+        )}
+        {contents}
+      </div>
+    );
+  }
+}

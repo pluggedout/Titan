@@ -4,35 +4,48 @@ import authService from './api-authorization/AuthorizeService';
 export class ChatData extends Component {
   static displayName = ChatData.name;
 
+      // Define custom CSS styles as constants
+      customTableStyle = {
+        backgroundColor: '#f0f8ff', // Light blue background color
+        border: '2px solid #1e90ff', // Blue border
+      };
+    
+      customListStyle = {
+        listStyleType: 'none', // Remove bullet points
+        padding: '0',
+      };
+    
+      customListItemStyle = {
+        // borderBottom: '1px solid #1e90ff', // Blue border at the bottom of each list item
+        padding: '8px',
+      };
+
   constructor(props) {
     super(props);
     this.state = { querydata: [], question: '', loading: true };
   }
 
-  // componentDidMount() {
-  //   this.populateChatData();
-  // }
 
-  static renderForecastsTable(querydatas) {
+
+  componentDidMount() {
+    this.loadChatHistoryFromLocalStorage();
+  }
+
+  renderForecastsTable(querydatas) {
     return (
-      <table className="table table-striped" aria-labelledby="tableLabel">
-        <thead>
-          <tr>
-            <th>Question</th>
-          </tr>
-          <tr>
-            <th>Reponses</th>
-          </tr>
-        </thead>
+        <table className="table" style={this.customTableStyle} aria-labelledby="tableLabel">
         <tbody>
-          <tr>
-            <td>
-              <textarea>{querydatas.question}</textarea>
-            </td>
-          </tr>
-          {querydatas.map(querydata => (
-            <tr key={querydata.created}>
-              <td>{querydata.choices[0].text}</td>
+          {querydatas.map((querydata, index) => (
+            <tr key={index}>
+              <td>
+                <ul style={this.customListStyle}>
+                  {querydata.choices.map((choice, choiceIndex) => (
+                    <li key={choiceIndex} style={this.customListItemStyle}>
+                      {choice.text}
+                    </li>
+                  ))}
+                </ul>
+              </td>
             </tr>
           ))}
         </tbody>
@@ -63,27 +76,53 @@ export class ChatData extends Component {
 
     if (response.ok) {
       const data = await response.json();
-      this.setState({ querydata: data, loading: false });
+      this.updateChatHistory(data);
     }
+  }
+
+  updateChatHistory(newData) {
+    const chatHistory = [...newData, ...this.state.querydata];
+    this.setState({ querydata: chatHistory, loading: false });
+    this.saveChatHistoryToLocalStorage(chatHistory);
+  }
+
+  loadChatHistoryFromLocalStorage() {
+    const chatHistory = JSON.parse(localStorage.getItem('chatHistory')) || [];
+    this.setState({ querydata: chatHistory, loading: false });
+  }
+
+  saveChatHistoryToLocalStorage(chatHistory) {
+    localStorage.setItem('chatHistory', JSON.stringify(chatHistory));
   }
 
   render() {
     let contents = this.state.loading
       ? <p><em>Loading...</em></p>
-      : ChatData.renderForecastsTable(this.state.querydata);
+      : this.renderForecastsTable(this.state.querydata);
 
     return (
       <div>
         <h1 id="tableLabel">ChatGPT data</h1>
-        <p>This component demonstrates fetching data from the ChatGPT server.</p>
-        <input
-          type="text"
-          placeholder="Ask a question"
-          value={this.state.question}
-          onChange={this.handleInputChange}
-          onKeyDown={this.handleKeyDown}
-        />
-        <button onClick={this.sendQuestionToBackend}>Send</button>
+        <p>This component demonstrates fetching data from the OpenAI ChatGPT server.</p>
+        <div style={{ display: "flex" }}>
+          <input
+            className="form-control"
+            type="text"
+            placeholder="Ask a question"
+            value={this.state.question}
+            onChange={this.handleInputChange}
+            onKeyDown={this.handleKeyDown}
+            onFocus={() => this.setState({ question: '' })} // Clear input on focus
+            style={{ marginBottom: "10px" }}
+          />
+          <button
+            className="btn btn-lg btn-primary"
+            onClick={this.sendQuestionToBackend}
+            style={{ marginLeft: "10px", marginBottom: "10px" }} // Add margin to the button
+          >
+            Send
+          </button>
+        </div>
         {contents}
       </div>
     );

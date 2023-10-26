@@ -35,7 +35,7 @@ namespace Titan.Controllers
         public IEnumerable<Root> Post([FromBody] ChatMessage message)
         {
             var newMessage = message.Question; // _chatService.AddMessage(message);
-            var messages = _chatService.GetAllMessages();
+            var messages = _chatService.GetAllMessages(newMessage);
             return messages;
         }
     }
