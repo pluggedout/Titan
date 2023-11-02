@@ -28,6 +28,7 @@ name: Build and deploy a container to an Azure Web App
 
 env:
   AZURE_WEBAPP_NAME: titan-frontend  # set this to the name of your Azure Web App
+  NODE_VERSION: '14.x'
 
 on:
   push:
@@ -38,6 +39,19 @@ permissions:
   contents: read
 
 jobs:
+  install-dotnet-nuget:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup Dotnet 7.0.x
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '7.0.x'
+      - name: Install NuGet
+        uses: nuget/setup-nuget@v1
+        with:
+          nuget-version: ${{ env.NUGET_VERSION}}
+
   build:
     runs-on: ubuntu-latest
 
@@ -84,3 +98,13 @@ jobs:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
           images: 'ghcr.io/${{ env.REPO }}:${{ github.sha }}'
+  
+  build-and-deploy:
+    name: Build and Deploy
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@main
+    - name: Use Node.js ${{ env.NODE_VERSION }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ env.NODE_VERSION }}

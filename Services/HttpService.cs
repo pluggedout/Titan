@@ -25,7 +25,6 @@ request.Content = content;
             throw new Exception("Null response from Azure AI");
         }
     }
-
 }
 
 public interface IHttpService
