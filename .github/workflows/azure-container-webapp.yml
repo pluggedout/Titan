@@ -41,9 +41,10 @@ permissions:
 jobs:
   install-dotnet-nuget-node:
     runs-on: ubuntu-latest
-    # - uses: actions/checkout@main
     
     steps:
+      - uses: actions/checkout@main
+
       - name: Setup Dotnet 7.0.x
         uses: actions/setup-dotnet@v1
         with:
