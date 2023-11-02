@@ -28,7 +28,7 @@ name: Build and deploy a container to an Azure Web App
 
 env:
   AZURE_WEBAPP_NAME: titan-frontend  # set this to the name of your Azure Web App
-  NODE_VERSION: '14.x'
+  NODE_VERSION: '16.20.2'
 
 on:
   push:
