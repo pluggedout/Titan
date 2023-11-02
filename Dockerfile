@@ -35,9 +35,9 @@ RUN source ~/.bashrc
 RUN dotnet nuget locals --clear all
 RUN dotnet restore  --verbosity minimal
 COPY . ./
+ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
 RUN dotnet add package Microsoft.CodeAnalysis.Analyzers
 RUN dotnet build --no-restore
-ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
 RUN dotnet publish -c Release --no-restore -o out
 
 # Final stage / image
