@@ -35,8 +35,12 @@ on:
     branches: [ "main" ]
   workflow_dispatch:
 
+# permissions:
+#   contents: read
 permissions:
   contents: read
+  packages: write
+
 
 jobs:
   install-dotnet-nuget-node:
@@ -59,9 +63,6 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
 
   build:
-      permissions:
-        contents: read
-        packages: write
     runs-on: ubuntu-latest
 
     steps:
