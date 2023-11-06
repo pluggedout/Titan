@@ -99,12 +99,12 @@ jobs:
       name: 'Development'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
-    services:
-      myservice:
-        image: ghcr.io/pluggedout/titan:latest  # You can use a custom Docker image if needed
-        ports:
-          - 80:80
-          - 443:443
+    # services:
+    #   myservice:
+    #     image: ghcr.io/pluggedout/titan:latest  # You can use a custom Docker image if needed
+    #     ports:
+    #       - 80:80
+    #       - 443:443
 
     steps:
       - name: Lowercase the repo name and username
