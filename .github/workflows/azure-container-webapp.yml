@@ -101,7 +101,7 @@ jobs:
 
     services:
       myservice:
-        image: mydockerimage:latest  # You can use a custom Docker image if needed
+        image: titan:latest  # You can use a custom Docker image if needed
         ports:
           - 80:80
           - 443:443
