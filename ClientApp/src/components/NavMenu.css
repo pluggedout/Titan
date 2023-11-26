@@ -4,9 +4,19 @@
   word-break: break-all;
 }
 
+.navbar {
+  background-color: var(--background-color);
+}
+
 html {
+  background-color: var(--background-color);  
   font-size: 14px;
 }
+body {
+  background-color: var(--background-color);
+}
+
+
 @media (min-width: 768px) {
   html {
     font-size: 16px;
