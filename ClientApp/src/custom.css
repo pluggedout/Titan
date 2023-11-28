@@ -1,7 +1,8 @@
 /* Light Theme */
 :root {
     --background-color: #ebf1fe;
-    --link-color: #0366d6;
+    --link-color: #3574f2;
+    --link-visited-color: #1d4085;
     --focus-box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
     --code-color: #E01A76;
     --btn-primary-text-color: #fff;
@@ -14,7 +15,8 @@
   /* Dark Theme */
   [data-theme='dark'] {
     --background-color: #0d0d0d;
-    --link-color: #258cfb;
+    --link-color: #b4b4b4;
+    --link-visited-color: #5d5d5d;
     --focus-box-shadow: 0 0 0 0.1rem #0d0d0d, 0 0 0 0.25rem #258cfb;
     --code-color: #E01A76;
     --btn-primary-text-color: #fff;

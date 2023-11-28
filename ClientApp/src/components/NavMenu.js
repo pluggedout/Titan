@@ -21,9 +21,9 @@ export const NavMenu = () => {
 
   useEffect(() => {
     if (hasAttribute) {
-      document.body.setAttribute('data-theme', 'dark');
+      document.documentElement.setAttribute('data-theme', 'dark');
     } else {
-      document.body.removeAttribute('data-theme');
+      document.documentElement.removeAttribute('data-theme');
     }
   }, [hasAttribute]);
 
@@ -40,7 +40,7 @@ export const NavMenu = () => {
               <NavLink tag={Link} className="text-dark" to="/">Home</NavLink>
             </NavItem>
             { <NavItem>
-              <NavLink onClick={toggleAttribute} tag={Link} className="text-dark" to="#">Theme Toggle</NavLink>
+              <NavLink onClick={toggleAttribute} tag={Link} className="text-dark" to="#">Light/Dark</NavLink>
             </NavItem>
             /*<NavItem>
               <NavLink tag={Link} className="text-dark" to="/fetch-data">Fetch data</NavLink>

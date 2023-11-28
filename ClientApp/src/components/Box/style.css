@@ -1,0 +1,36 @@
+.box {
+    height: 499px;
+    position: relative;
+    width: 362px;
+  }
+  
+  .box .info-box-2 {
+    border: 1px dashed;
+    border-color: #9747ff;
+    border-radius: 5px;
+    height: 499px;
+    left: 0;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    width: 362px;
+  }
+  
+  .box .property-up {
+    left: 20px !important;
+    position: absolute !important;
+    top: 20px !important;
+  }
+  
+  .box .property-no {
+    left: 20px !important;
+    position: absolute !important;
+    top: 178px !important;
+  }
+  
+  .box .property-down {
+    left: 20px !important;
+    position: absolute !important;
+    top: 336px !important;
+  }
+  
