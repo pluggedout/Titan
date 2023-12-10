@@ -1,23 +1,28 @@
 import React, { Component } from 'react';
 import authService from './api-authorization/AuthorizeService';
+import { Helmet } from 'react-helmet';
+import '../custom.css';
 
 export class ChatData extends Component {
   static displayName = ChatData.name;
 
       // Define custom CSS styles as constants
       customTableStyle = {
-        backgroundColor: '#f0f8ff', // Light blue background color
+        backgroundColor: 'var(--background-color)', 
         border: '2px solid #1e90ff', // Blue border
       };
     
       customListStyle = {
         listStyleType: 'none', // Remove bullet points
+        backgroundColor: 'var(--background-color)', // Fix: Add 'var' and proper value
         padding: '0',
       };
     
       customListItemStyle = {
-        // borderBottom: '1px solid #1e90ff', // Blue border at the bottom of each list item
+        // borderBottom: '1px solid #1e90ff',
         padding: '8px',
+        backgroundColor: 'var(--background-color)', // Fix: Add 'var' and proper value
+        color: 'var(--text-color)', // Fix: Add 'var' and proper value
       };
 
   constructor(props) {
